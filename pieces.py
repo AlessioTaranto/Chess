@@ -2,8 +2,8 @@ import pyglet
 
 
 # TODO: finish to work on the piece class
-# TODO: Get the mouse click
-# TODO: Create a movement system
+# TODO: Get the mouse click (In a different file)
+# TODO: Do the Update function
 
 class piece:
     def __init__(self, color, type, x, y):
