@@ -1,7 +1,9 @@
 import pyglet
 from board import board
+from pieces import piece
 
 # TODO: create pawn class and create the images
+
 
 class Game_Window(pyglet.window.Window):
     def __init__(self):
@@ -15,10 +17,12 @@ class Game_Window(pyglet.window.Window):
 
         # Declare the board
         self.board = board()
+        self.testpiece = piece('B', 'Pawn', 8, 'A')
 
     def on_draw(self):
         self.clear()
         self.board.draw()
+        self.testpiece.draw()
 
     def update(self, dt):
         pass
