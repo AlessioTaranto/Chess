@@ -47,7 +47,6 @@ def get_position(x, y):
         position.append(400)
 
     # 'y' axis
-
     if y is 'A':
         position.append(400)
     elif y is 'B':
