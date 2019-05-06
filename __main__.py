@@ -1,7 +1,7 @@
 import pyglet
 from board import board
 
-# TODO: create chess images
+# TODO: create pawn class and create the images
 
 class Game_Window(pyglet.window.Window):
     def __init__(self):
