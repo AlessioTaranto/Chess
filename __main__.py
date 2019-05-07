@@ -1,8 +1,7 @@
 import pyglet
-from board import board
-from pieces import piece
-from logic import Game
+from game import Game
 
+print('Chess game by Alessio Taranto\n')
 
 class Game_Window(pyglet.window.Window):
     def __init__(self):
@@ -15,17 +14,18 @@ class Game_Window(pyglet.window.Window):
         self.set_caption('Chess')
 
         # Declare the board
-        self.board = board()
         self.game = Game()
 
     def on_draw(self):
         self.clear()
 
         # Draw board and pieces
-        self.board.draw()
         self.game.draw()
 
     def update(self, dt):
+        pass
+
+    def on_mouse_press(self, x, y, button, modifiers):
         pass
 
 

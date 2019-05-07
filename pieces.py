@@ -1,16 +1,18 @@
 import pyglet
 
-
-# TODO: finish to work on the piece class
-# TODO: Get the mouse click (In a different file)
 # TODO: Do the Update function
 
-class piece:
+class Piece:
     def __init__(self, color, type, x, y):
         # Ask the type of the piece
         self.type = type
         self.position = get_position(x, y)    # y = letter es. 'A'
         self.color = color
+
+        # Selection Logic
+        self.isSelected = False
+        image = pyglet.image.load('C:/Users/aless/Documents/Python/2D_games/Chess/resources/selected.png')
+        self.selected_sprite = pyglet.sprite.Sprite(image, x=self.position[0], y=self.position[1])
 
         # Create Sprite
         image = load_image(self.color, self.type)
@@ -18,6 +20,8 @@ class piece:
 
     def draw(self):
         self.sprite.draw()
+        if self.isSelected is True:
+            self.selected_sprite.draw()
 
     def update(self):
         pass
@@ -68,44 +72,42 @@ def get_position(x, y):
 
 
 # Function that return the right image for the type and color
-# TODO: fix the bishop photo
-# TODO: redo white team images
 def load_image(color, type):
     image: pyglet.image
 
     # White
     if color is 'W':
         if type is 'Bishop':
-            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/icons8-alfiere-50.png")
+            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/white_bishop.png")
             return image
         elif type is 'Horse':
-            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/icons8-cavalllo-50.png")
+            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/white_horse.png")
         elif type is 'Pawn':
-            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/icons8-pedone-50.png")
+            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/white_pawn.png")
         elif type is 'King':
-            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/icons8-re-50.png")
+            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/white_king.png")
         elif type is 'Queen':
-            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/icons8-regina-50.png")
+            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/white_queen.png")
         elif type is 'Tower':
-            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/icons8-torre-50.png")
+            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/white_tower.png")
         else:
             print("Wrong type")
 
     # Black
     elif color is 'B':
         if type is 'Bishop':
-            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/icons8-alfiere-filled-50.png")
+            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/black_bishop.png")
             return image
         elif type is 'Horse':
-            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/icons8-cavalllo-filled-50.png")
+            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/black_horse.png")
         elif type is 'Pawn':
-            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/icons8-pedone-filled-50.png")
+            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/black_pawn.png")
         elif type is 'King':
-            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/icons8-re-filled-50.png")
+            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/black_king.png")
         elif type is 'Queen':
-            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/icons8-regina-filled-50.png")
+            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/black_queen.png")
         elif type is 'Tower':
-            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/icons8-torre-filled-50.png")
+            image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/black_tower.png")
         else:
             print("Wrong type")
 
