@@ -68,6 +68,8 @@ def get_position(x, y):
 
 
 # Function that return the right image for the type and color
+# TODO: fix the bishop photo
+# TODO: redo white team images
 def load_image(color, type):
     image: pyglet.image
 
