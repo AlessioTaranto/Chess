@@ -73,75 +73,51 @@ class Game:
         for x in range(len(self.black_team)):
             self.black_team[x].update()
 
+    # Check if the mouse click is on top of a piece
+    def mouse_select(self, x, y):
+        # Delete ols selection
+        for piece in self.white_team:
+            piece.isSelected = False
+
+        for piece in self.black_team:
+            piece.isSelected = False
+
+        for piece in self.white_team:
+            piece.check_if_clicked(x, y)
+
+        for piece in self.black_team:
+            piece.check_if_clicked(x, y)
+
     # A function to update  the map
     def update_board(self):
+        debug = True
         for cell_x in range(1, 8):
             for cell_y in range(1, 8):
+
+                # White team
                 for piece in self.white_team:
                     piece_cell = piece.get_cell()
-                    if piece_cell[0] == cell_x:
-                        if piece_cell[1] == cell_y:
-                            self.board.map[cell_y][cell_x] = 1
-                        else:
-                            self.board.map[cell_y][cell_x] = 0
+                    if debug is True:
+                        print('Cell: ' + str(cell_x) + ', ' + str(cell_y) + ' Piece: ' + str(piece_cell[0]) + ' ,' + str(piece_cell[1]))
+                    if piece_cell[0] == cell_x and piece_cell[1] == cell_y:
+                        self.board.map[cell_y][cell_x] = 1
                     else:
                         self.board.map[cell_y][cell_x] = 0
 
+                # Black Team
                 for piece in self.black_team:
                     piece_cell = piece.get_cell()
-                    if piece_cell[0] == cell_x:
-                        if piece_cell[1] == cell_y:
+                    if piece_cell[0] is cell_x:
+                        if piece_cell[1] is cell_y:
                             self.board.map[cell_y][cell_x] = 2
                         else:
                             self.board.map[cell_y][cell_x] = 0
                     else:
                         self.board.map[cell_y][cell_x] = 0
 
+        self.print_board()
+
     def print_board(self):
         print('\nBoard: ')
         for cell in self.board.map:
             print(*cell)
-
-    # Select a piece in the board
-    @staticmethod
-    def select(x, y):
-        # cell selected = [x, y]
-        cell_selected = [0, 0]
-
-        # 'x' axis
-        if 50 > x < 100:
-            cell_selected.append(1)
-        elif 100 > x < 150:
-            cell_selected.append(2)
-        elif 150 > x < 200:
-            cell_selected.append(3)
-        elif 200 > x < 250:
-            cell_selected.append(4)
-        elif 250 > x < 300:
-            cell_selected.append(5)
-        elif 300 > x < 350:
-            cell_selected.append(6)
-        elif 350 > x < 400:
-            cell_selected.append(7)
-        elif 400 > x < 450:
-            cell_selected.append(8)
-
-        # 'y' axis
-        if 50 > y < 100:
-            cell_selected.append('H')
-        elif 100 > y < 150:
-            cell_selected.append('G')
-        elif 150 > y < 200:
-            cell_selected.append('F')
-        elif 200 > y < 250:
-            cell_selected.append('E')
-        elif 250 > y < 300:
-            cell_selected.append('D')
-        elif 300 > y < 350:
-            cell_selected.append('C')
-        elif 350 > y < 400:
-            cell_selected.append('B')
-        elif 400 > y < 450:
-            cell_selected.append('A')
-
-        return cell_selected

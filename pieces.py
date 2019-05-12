@@ -34,9 +34,8 @@ class Piece:
         self.sprite.x = self.position[0]
         self.sprite.y = self.position[1]
 
-        if self.isSelected is True:
-            self.selected_sprite.x = self.position[0]
-            self.selected_sprite.x = self.position[1]
+        self.selected_sprite.x = self.position[0]
+        self.selected_sprite.y = self.position[1]
 
     # Return a position [cell_x, cell_y] = es[5, 8]
     def move(self, x, y):
@@ -46,6 +45,12 @@ class Piece:
     def get_cell(self):
         cell = pos_to_grid(self.position[0], self.position[1])
         return cell
+
+    def check_if_clicked(self, x, y):
+        if self.position[0] + 50 > x > self.position[0]:
+            if self.position[1] + 50 > y > self.position[1]:
+                print('\n' + str(self.color) + ' - ' + str(self.type) + ' has been selected')
+                self.isSelected = True
 
 
 def pos_to_grid(x, y):
@@ -57,7 +62,6 @@ def pos_to_grid(x, y):
 
     # x axis
     for x in range(2):
-        print(x)
         if pos[x] == 400:
             cell[x] = 8
         elif pos[x] == 350:

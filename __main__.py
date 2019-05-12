@@ -1,7 +1,7 @@
 import pyglet
 
 # Dependencies
-from pyglet.window import  key
+from pyglet.window import  key, mouse
 
 # External classes
 from game import Game
@@ -33,10 +33,10 @@ class Game_Window(pyglet.window.Window):
     def on_key_press(self, symbol, modifiers):
         if symbol is key.U:
             self.game.update_board()
-            self.game.print_board()
 
     def on_mouse_press(self, x, y, button, modifiers):
-        pass
+        if button is mouse.LEFT:
+            self.game.mouse_select(x, y)
 
 
 if __name__ == "__main__":
