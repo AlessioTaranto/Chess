@@ -1,12 +1,13 @@
 import pyglet
 
-# TODO: Do the Update function
 
 class Piece:
     def __init__(self, color, type, x, y):
         # Ask the type of the piece
         self.type = type
-        self.position = get_position(x, y)    # y = letter es. 'A'
+        self.cell = [x, y]
+        self.position = grid_to_pos(self.cell[0], self.cell[1])
+        print('Piece created: ' + str(self.position) + ' // ' + str(self.cell))
         self.color = color
 
         # Selection Logic
@@ -24,51 +25,86 @@ class Piece:
             self.selected_sprite.draw()
 
     def update(self):
-        pass
+        debug = False
+        # Update position
+        if debug is True:
+            print('Update: ' + str(self.position))
+
+        # Set positions
+        self.sprite.x = self.position[0]
+        self.sprite.y = self.position[1]
+
+        if self.isSelected is True:
+            self.selected_sprite.x = self.position[0]
+            self.selected_sprite.x = self.position[1]
+
+    # Return a position [cell_x, cell_y] = es[5, 8]
+    def move(self, x, y):
+        new_pos = grid_to_pos(x, y)
+        self.position = new_pos
+
+    def get_cell(self):
+        cell = pos_to_grid(self.position[0], self.position[1])
+        return cell
 
 
-# Get relative position
-def get_position(x, y):
-    # position = [x, y]
-    position = []
+def pos_to_grid(x, y):
+    debug = False
+    pos = [x, y]
+    cell = [0, 0]
+    if debug is True:
+        print('-Initial value' + str(pos))
 
-    # 'x' axis
-    if x is 1:
-        position.append(50)
-    elif x is 2:
-        position.append(100)
-    elif x is 3:
-        position.append(150)
-    elif x is 4:
-        position.append(200)
-    elif x is 5:
-        position.append(250)
-    elif x is 6:
-        position.append(300)
-    elif x is 7:
-        position.append(350)
-    elif x is 8:
-        position.append(400)
+    # x axis
+    for x in range(2):
+        print(x)
+        if pos[x] == 400:
+            cell[x] = 8
+        elif pos[x] == 350:
+            cell[x] = 7
+        elif pos[x] == 300:
+            cell[x] = 6
+        elif pos[x] == 250:
+            cell[x] = 5
+        elif pos[x] == 200:
+            cell[x] = 4
+        elif pos[x] == 150:
+            cell[x] = 3
+        elif pos[x] == 100:
+            cell[x] = 2
+        elif pos[x] == 50:
+            cell[x] = 1
+        else:
+            print('Wrong position')
 
-    # 'y' axis
-    if y is 'A':
-        position.append(400)
-    elif y is 'B':
-        position.append(350)
-    elif y is 'C':
-        position.append(300)
-    elif y is 'D':
-        position.append(250)
-    elif y is 'E':
-        position.append(200)
-    elif y is 'F':
-        position.append(150)
-    elif y is 'G':
-        position.append(100)
-    elif y is 'H':
-        position.append(50)
+    if debug is True:
+        print('-Final value:' + str(cell))
+    return cell
 
-    return position
+
+def grid_to_pos(x, y):
+    pos = [0, 0]
+    cell = [x, y]
+
+    for x in range(2):
+        if cell[x] == 1:
+            pos[x] = 50
+        elif cell[x] == 2:
+            pos[x] = 100
+        elif cell[x] == 3:
+            pos[x] = 150
+        elif cell[x] == 4:
+            pos[x] = 200
+        elif cell[x] == 5:
+            pos[x] = 250
+        elif cell[x] == 6:
+            pos[x] = 300
+        elif cell[x] == 7:
+            pos[x] = 350
+        elif cell[x] == 8:
+            pos[x] = 400
+
+    return pos
 
 
 # Function that return the right image for the type and color

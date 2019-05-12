@@ -1,4 +1,9 @@
 import pyglet
+
+# Dependencies
+from pyglet.window import  key
+
+# External classes
 from game import Game
 
 print('Chess game by Alessio Taranto\n')
@@ -23,7 +28,12 @@ class Game_Window(pyglet.window.Window):
         self.game.draw()
 
     def update(self, dt):
-        pass
+        self.game.update()
+
+    def on_key_press(self, symbol, modifiers):
+        if symbol is key.U:
+            self.game.update_board()
+            self.game.print_board()
 
     def on_mouse_press(self, x, y, button, modifiers):
         pass
