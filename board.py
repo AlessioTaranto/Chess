@@ -8,6 +8,10 @@ class Board:
         self.board_sprite = pyglet.sprite.Sprite(board_image, x=0, y=0)
 
         # Logic (0 = empty, 1 = white, 2 = black)
+        self.map = []
+        self.clear()
+
+    def clear(self):
         self.map = [[0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -16,6 +20,11 @@ class Board:
                     [0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0]]
+
+    def print(self):
+        print('\nBoard: ')
+        for cell in self.map:
+            print(*cell)
 
     def draw(self):
         self.board_sprite.draw()

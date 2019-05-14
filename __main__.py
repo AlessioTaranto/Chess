@@ -30,10 +30,12 @@ class Game_Window(pyglet.window.Window):
     def update(self, dt):
         self.game.update()
 
+# Press 'U' to update and print the board map
     def on_key_press(self, symbol, modifiers):
         if symbol is key.U:
             self.game.update_board()
 
+# Handle the mouse clicks
     def on_mouse_press(self, x, y, button, modifiers):
         if button is mouse.LEFT:
             self.game.mouse_select(x, y)

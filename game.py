@@ -90,34 +90,14 @@ class Game:
 
     # A function to update  the map
     def update_board(self):
-        debug = True
-        for cell_x in range(1, 8):
-            for cell_y in range(1, 8):
+        self.board.clear()
+        all_pieces = self.black_team + self.white_team
+        for piece in all_pieces:
+            cell = piece.get_cell()
+            if piece.color is 'B':
+                self.board.map[cell[1] - 1][cell[0] - 1] = 2
+            else:
+                self.board.map[cell[1] - 1][cell[0] - 1] = 1
 
-                # White team
-                for piece in self.white_team:
-                    piece_cell = piece.get_cell()
-                    if debug is True:
-                        print('Cell: ' + str(cell_x) + ', ' + str(cell_y) + ' Piece: ' + str(piece_cell[0]) + ' ,' + str(piece_cell[1]))
-                    if piece_cell[0] == cell_x and piece_cell[1] == cell_y:
-                        self.board.map[cell_y][cell_x] = 1
-                    else:
-                        self.board.map[cell_y][cell_x] = 0
+        self.board.print()
 
-                # Black Team
-                for piece in self.black_team:
-                    piece_cell = piece.get_cell()
-                    if piece_cell[0] is cell_x:
-                        if piece_cell[1] is cell_y:
-                            self.board.map[cell_y][cell_x] = 2
-                        else:
-                            self.board.map[cell_y][cell_x] = 0
-                    else:
-                        self.board.map[cell_y][cell_x] = 0
-
-        self.print_board()
-
-    def print_board(self):
-        print('\nBoard: ')
-        for cell in self.board.map:
-            print(*cell)

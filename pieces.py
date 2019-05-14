@@ -46,6 +46,7 @@ class Piece:
         cell = pos_to_grid(self.position[0], self.position[1])
         return cell
 
+    # Check if the click(x, y) in on top of the piece
     def check_if_clicked(self, x, y):
         if self.position[0] + 50 > x > self.position[0]:
             if self.position[1] + 50 > y > self.position[1]:
