@@ -1,4 +1,4 @@
-Simple 'Chess' game
+Simple 'Chess' game mnade by Alessio Taranto
 
 Install:
     change the images directories

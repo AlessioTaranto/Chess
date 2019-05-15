@@ -50,7 +50,6 @@ class Piece:
     def check_if_clicked(self, x, y):
         if self.position[0] + 50 > x > self.position[0]:
             if self.position[1] + 50 > y > self.position[1]:
-                print('\n' + str(self.color) + ' - ' + str(self.type) + ' has been selected')
                 self.isSelected = True
 
 

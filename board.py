@@ -21,6 +21,39 @@ class Board:
                     [0, 0, 0, 0, 0, 0, 0, 0],
                     [0, 0, 0, 0, 0, 0, 0, 0]]
 
+    # A function to get a cell position for the pieces movements
+    def find_cell(self, mouse_x, mouse_y):
+        debug = False
+        pos = [mouse_x, mouse_y]
+        cell = [0, 0]
+        if debug is True:
+            print('-Initial value' + str(pos))
+
+        # x axis
+        for x in range(2):
+            if pos[x] == 400:
+                cell[x] = 8
+            elif pos[x] == 350:
+                cell[x] = 7
+            elif pos[x] == 300:
+                cell[x] = 6
+            elif pos[x] == 250:
+                cell[x] = 5
+            elif pos[x] == 200:
+                cell[x] = 4
+            elif pos[x] == 150:
+                cell[x] = 3
+            elif pos[x] == 100:
+                cell[x] = 2
+            elif pos[x] == 50:
+                cell[x] = 1
+            else:
+                print('Wrong position')
+
+        if debug is True:
+            print('-Final value:' + str(cell))
+        return cell
+
     def print(self):
         print('\nBoard: ')
         for cell in self.map:

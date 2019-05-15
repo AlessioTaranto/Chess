@@ -38,7 +38,7 @@ class Game_Window(pyglet.window.Window):
 # Handle the mouse clicks
     def on_mouse_press(self, x, y, button, modifiers):
         if button is mouse.LEFT:
-            self.game.mouse_select(x, y)
+            self.game.update_mouse(x, y)
 
 
 if __name__ == "__main__":
