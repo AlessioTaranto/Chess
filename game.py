@@ -62,7 +62,7 @@ class Game:
                 print('White ' + str(self.white_team[x].type) + ' [' + str(x) + '] position = ' + str(
                     self.white_team[x].position))
 
-        print("Teams created")
+        print("Teams created\n")
 
     # Draw the pieces
     def draw(self):
@@ -100,44 +100,43 @@ class Game:
                     if piece_number > len(self.white_team):
                         cell = self.black_team[piece_number - len(self.white_team)].get_cell()
                         if self.cell[0] is not cell[0] or self.cell[1] is not cell[1]:
-                                piece = self.black_team[piece_number - len(self.white_team)]
-                                print('Move: ' + str(piece.color) + ' - ' + str(piece.type) + ' ' + str(piece.get_cell()) + ' --> ' + str(self.cell))
-                                self.black_team[piece_number - len(self.white_team)].move(self.cell[0], self.cell[1])
+                            piece = self.black_team[piece_number - len(self.white_team)]
+                            print('Move: ' + str(piece.color) + ' - ' + str(piece.type) + ' ' + str(piece.get_cell()) + ' --> ' + str(self.cell))
+                            self.black_team[piece_number - len(self.white_team)].move(self.cell[0], self.cell[1])
 
-                                # Check collisions, so it check if a white got eaten
-                                for i in range(0, len(self.white_team)):
-                                    c = self.white_team[i].get_cell()
-                                    if self.cell[0] == c[0] and self.cell[1] == c[1]:
-                                        w = self.white_team[i]
-                                        print(str(w.color) + ' - ' + str(w.type) + ' got eaten')
-                                        del self.white_team[i]
-                                        break
+                            # Check collisions, so it check if a white got eaten
+                            for i in range(0, len(self.white_team)):
+                                c = self.white_team[i].get_cell()
+                                if self.cell[0] == c[0] and self.cell[1] == c[1]:
+                                    w = self.white_team[i]
+                                    print(str(w.color) + ' - ' + str(w.type) + ' got eaten')
+                                    del self.white_team[i]
+                                    break
 
-                                # Reset
-                                self.cell = [-1, -1]
-                                cell = [-1, -1]
-                                self.mouse_raw = [-1, -1]
+                            # Reset
+                            self.cell = [-1, -1]
+                            self.mouse_raw = [-1, -1]
 
                     # White team
                     elif piece_number <= len(self.white_team):
                         cell = self.white_team[piece_number].get_cell()
                         if self.cell[0] is not cell[0] or self.cell[1] is not cell[1]:
-                                piece = self.white_team[piece_number]
-                                self.white_team[piece_number].move(self.cell[0], self.cell[1])
+                            piece = self.white_team[piece_number]
+                            print('Move: ' + str(piece.color) + ' - ' + str(piece.type) + ' ' + str(piece.get_cell()) + ' --> ' + str(self.cell))
+                            self.white_team[piece_number].move(self.cell[0], self.cell[1])
 
-                                # Check collisions, so it check if a black got eaten
-                                for i in range(0, len(self.black_team)):
-                                    c = self.black_team[i].get_cell()
-                                    if self.cell[0] == c[0] and self.cell[1] == c[1]:
-                                        w = self.black_team[i]
-                                        print(str(w.color) + ' - ' + str(w.type) + ' got eaten')
-                                        del self.black_team[i]
-                                        break
+                            # Check collisions, so it check if a black got eaten
+                            for i in range(0, len(self.black_team)):
+                                c = self.black_team[i].get_cell()
+                                if self.cell[0] == c[0] and self.cell[1] == c[1]:
+                                    w = self.black_team[i]
+                                    print(str(w.color) + ' - ' + str(w.type) + ' got eaten')
+                                    del self.black_team[i]
+                                    break
 
-                                # Reset
-                                self.cell = [-1, -1]
-                                cell = [-1, -1]
-                                self.mouse_raw = [-1, -1]
+                            # Reset
+                            self.cell = [-1, -1]
+                            self.mouse_raw = [-1, -1]
         self.mouse_select()
 
     # Check if the mouse click is on top of a piece
@@ -187,9 +186,9 @@ class Game:
         for piece in all_pieces:
             cell = piece.get_cell()
             if piece.color is 'Black':
-                self.board.map[cell[1] - 1][cell[0] - 1] = 2
+                self.board.map[cell[1] - 1][cell[0] - 1].data = 2
             else:
-                self.board.map[cell[1] - 1][cell[0] - 1] = 1
+                self.board.map[cell[1] - 1][cell[0] - 1].data = 1
 
         self.board.print()
 

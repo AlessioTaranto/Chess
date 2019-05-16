@@ -15,6 +15,11 @@ class Piece:
         image = pyglet.image.load('C:/Users/aless/Documents/Python/2D_games/Chess/resources/selected.png')
         self.selected_sprite = pyglet.sprite.Sprite(image, x=self.position[0], y=self.position[1])
 
+        # Danger image
+        self.inDanger = False
+        image = pyglet.image.load('C:/Users/aless/Documents/Python/2D_games/Chess/resources/selected.png')
+        self.danger_sprite = pyglet.sprite.Sprite(image, x=self.position[0], y=self.position[1])
+
         # Create Sprite
         image = load_image(self.color, self.type)
         self.sprite = pyglet.sprite.Sprite(image, x=self.position[0], y=self.position[1])
@@ -23,6 +28,8 @@ class Piece:
         self.sprite.draw()
         if self.isSelected is True:
             self.selected_sprite.draw()
+        elif self.inDanger is True:
+            self.danger_sprite.draw()
 
     def update(self):
         debug = False
