@@ -116,7 +116,7 @@ def load_image(color, type):
     image: pyglet.image
 
     # White
-    if color is 'W':
+    if color is 'White':
         if type is 'Bishop':
             image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/white_bishop.png")
             return image
@@ -134,7 +134,7 @@ def load_image(color, type):
             print("Wrong type")
 
     # Black
-    elif color is 'B':
+    elif color is 'Black':
         if type is 'Bishop':
             image = pyglet.image.load("C:/Users/aless/Documents/Python/2D_games/Chess/resources/black_bishop.png")
             return image

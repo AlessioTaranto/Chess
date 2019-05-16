@@ -19,40 +19,40 @@ class Game:
 
         # Create teams
         self.white_team = []
-        self.white_team.append(Piece('W', 'Tower', 1, 8))
-        self.white_team.append(Piece('W', 'Horse', 2, 8))
-        self.white_team.append(Piece('W', 'Bishop', 3, 8))
-        self.white_team.append(Piece('W', 'Queen', 4, 8))
-        self.white_team.append(Piece('W', 'King', 5, 8))
-        self.white_team.append(Piece('W', 'Bishop', 6, 8))
-        self.white_team.append(Piece('W', 'Horse', 7, 8))
-        self.white_team.append(Piece('W', 'Tower', 8, 8))
-        self.white_team.append(Piece('W', 'Pawn', 1, 7))
-        self.white_team.append(Piece('W', 'Pawn', 2, 7))
-        self.white_team.append(Piece('W', 'Pawn', 3, 7))
-        self.white_team.append(Piece('W', 'Pawn', 4, 7))
-        self.white_team.append(Piece('W', 'Pawn', 5, 7))
-        self.white_team.append(Piece('W', 'Pawn', 6, 7))
-        self.white_team.append(Piece('W', 'Pawn', 7, 7))
-        self.white_team.append(Piece('W', 'Pawn', 8, 7))
+        self.white_team.append(Piece('White', 'Tower', 1, 8))
+        self.white_team.append(Piece('White', 'Horse', 2, 8))
+        self.white_team.append(Piece('White', 'Bishop', 3, 8))
+        self.white_team.append(Piece('White', 'Queen', 4, 8))
+        self.white_team.append(Piece('White', 'King', 5, 8))
+        self.white_team.append(Piece('White', 'Bishop', 6, 8))
+        self.white_team.append(Piece('White', 'Horse', 7, 8))
+        self.white_team.append(Piece('White', 'Tower', 8, 8))
+        self.white_team.append(Piece('White', 'Pawn', 1, 7))
+        self.white_team.append(Piece('White', 'Pawn', 2, 7))
+        self.white_team.append(Piece('White', 'Pawn', 3, 7))
+        self.white_team.append(Piece('White', 'Pawn', 4, 7))
+        self.white_team.append(Piece('White', 'Pawn', 5, 7))
+        self.white_team.append(Piece('White', 'Pawn', 6, 7))
+        self.white_team.append(Piece('White', 'Pawn', 7, 7))
+        self.white_team.append(Piece('White', 'Pawn', 8, 7))
 
         self.black_team = []
-        self.black_team.append(Piece('B', 'Tower', 1, 1))
-        self.black_team.append(Piece('B', 'Horse', 2, 1))
-        self.black_team.append(Piece('B', 'Bishop', 3, 1))
-        self.black_team.append(Piece('B', 'Queen', 4, 1))
-        self.black_team.append(Piece('B', 'King', 5, 1))
-        self.black_team.append(Piece('B', 'Bishop', 6, 1))
-        self.black_team.append(Piece('B', 'Horse', 7, 1))
-        self.black_team.append(Piece('B', 'Tower', 8, 1))
-        self.black_team.append(Piece('B', 'Pawn', 1, 2))
-        self.black_team.append(Piece('B', 'Pawn', 2, 2))
-        self.black_team.append(Piece('B', 'Pawn', 3, 2))
-        self.black_team.append(Piece('B', 'Pawn', 4, 2))
-        self.black_team.append(Piece('B', 'Pawn', 5, 2))
-        self.black_team.append(Piece('B', 'Pawn', 6, 2))
-        self.black_team.append(Piece('B', 'Pawn', 7, 2))
-        self.black_team.append(Piece('B', 'Pawn', 8, 2))
+        self.black_team.append(Piece('Black', 'Tower', 1, 1))
+        self.black_team.append(Piece('Black', 'Horse', 2, 1))
+        self.black_team.append(Piece('Black', 'Bishop', 3, 1))
+        self.black_team.append(Piece('Black', 'Queen', 4, 1))
+        self.black_team.append(Piece('Black', 'King', 5, 1))
+        self.black_team.append(Piece('Black', 'Bishop', 6, 1))
+        self.black_team.append(Piece('Black', 'Horse', 7, 1))
+        self.black_team.append(Piece('Black', 'Tower', 8, 1))
+        self.black_team.append(Piece('Black', 'Pawn', 1, 2))
+        self.black_team.append(Piece('Black', 'Pawn', 2, 2))
+        self.black_team.append(Piece('Black', 'Pawn', 3, 2))
+        self.black_team.append(Piece('Black', 'Pawn', 4, 2))
+        self.black_team.append(Piece('Black', 'Pawn', 5, 2))
+        self.black_team.append(Piece('Black', 'Pawn', 6, 2))
+        self.black_team.append(Piece('Black', 'Pawn', 7, 2))
+        self.black_team.append(Piece('Black', 'Pawn', 8, 2))
 
         self.cell = [-1, -1]
         self.mouse_raw = [0, 0]
@@ -69,14 +69,12 @@ class Game:
         self.board.draw()
         for x in range(len(self.white_team)):
             self.white_team[x].draw()
-
         for x in range(len(self.black_team)):
             self.black_team[x].draw()
 
     def update(self):
         for x in range(len(self.white_team)):
             self.white_team[x].update()
-
         for x in range(len(self.black_team)):
             self.black_team[x].update()
 
@@ -101,23 +99,42 @@ class Game:
                     # Black Team
                     if piece_number > len(self.white_team):
                         cell = self.black_team[piece_number - len(self.white_team)].get_cell()
-                        print(str(self.cell) + '  ' + str(cell))
                         if self.cell[0] is not cell[0] or self.cell[1] is not cell[1]:
                                 piece = self.black_team[piece_number - len(self.white_team)]
                                 print('Move: ' + str(piece.color) + ' - ' + str(piece.type) + ' ' + str(piece.get_cell()) + ' --> ' + str(self.cell))
                                 self.black_team[piece_number - len(self.white_team)].move(self.cell[0], self.cell[1])
+
+                                # Check collisions, so it check if a white got eaten
+                                for i in range(0, len(self.white_team)):
+                                    c = self.white_team[i].get_cell()
+                                    if self.cell[0] == c[0] and self.cell[1] == c[1]:
+                                        w = self.white_team[i]
+                                        print(str(w.color) + ' - ' + str(w.type) + ' got eaten')
+                                        del self.white_team[i]
+                                        break
+
+                                # Reset
                                 self.cell = [-1, -1]
                                 cell = [-1, -1]
                                 self.mouse_raw = [-1, -1]
 
                     # White team
-                    if piece_number <= len(self.white_team):
+                    elif piece_number <= len(self.white_team):
                         cell = self.white_team[piece_number].get_cell()
-                        print(str(self.cell) + '  ' + str(cell))
                         if self.cell[0] is not cell[0] or self.cell[1] is not cell[1]:
                                 piece = self.white_team[piece_number]
-                                print('Move: ' + str(piece.color) + ' - ' + str(piece.type) + ' ' + str(piece.get_cell()) + ' --> ' + str(self.cell))
                                 self.white_team[piece_number].move(self.cell[0], self.cell[1])
+
+                                # Check collisions, so it check if a black got eaten
+                                for i in range(0, len(self.black_team)):
+                                    c = self.black_team[i].get_cell()
+                                    if self.cell[0] == c[0] and self.cell[1] == c[1]:
+                                        w = self.black_team[i]
+                                        print(str(w.color) + ' - ' + str(w.type) + ' got eaten')
+                                        del self.black_team[i]
+                                        break
+
+                                # Reset
                                 self.cell = [-1, -1]
                                 cell = [-1, -1]
                                 self.mouse_raw = [-1, -1]
@@ -169,7 +186,7 @@ class Game:
         all_pieces = self.black_team + self.white_team
         for piece in all_pieces:
             cell = piece.get_cell()
-            if piece.color is 'B':
+            if piece.color is 'Black':
                 self.board.map[cell[1] - 1][cell[0] - 1] = 2
             else:
                 self.board.map[cell[1] - 1][cell[0] - 1] = 1
