@@ -53,6 +53,9 @@ class Game:
         self.black_team.append(Piece('Black', 'Pawn', 6, 2))
         self.black_team.append(Piece('Black', 'Pawn', 7, 2))
         self.black_team.append(Piece('Black', 'Pawn', 8, 2))
+        # TEST
+        #print(str(self.black_team[0].color + str(self.black_team[0].type)))
+        #self.black_team[0].check_movement()
 
         self.cell = [-1, -1]
         self.mouse_raw = [0, 0]
@@ -97,7 +100,7 @@ class Game:
                 if self.cell[1] is not -1:
 
                     # Black Team
-                    if piece_number > len(self.white_team):
+                    if piece_number > len(self.white_team) - 1:
                         cell = self.black_team[piece_number - len(self.white_team)].get_cell()
                         if self.cell[0] is not cell[0] or self.cell[1] is not cell[1]:
                             piece = self.black_team[piece_number - len(self.white_team)]

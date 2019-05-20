@@ -44,6 +44,26 @@ class Piece:
         self.selected_sprite.x = self.position[0]
         self.selected_sprite.y = self.position[1]
 
+    # Check the possible cells for the piece to move
+    def check_movement(self):
+        map = [[0, 0, 0, 0, 0, 0, 0, 0],
+               [0, 0, 0, 0, 0, 0, 0, 0],
+               [0, 0, 0, 0, 0, 0, 0, 0],
+               [0, 0, 0, 0, 0, 0, 0, 0],
+               [0, 0, 0, 0, 0, 0, 0, 0],
+               [0, 0, 0, 0, 0, 0, 0, 0],
+               [0, 0, 0, 0, 0, 0, 0, 0],
+               [0, 0, 0, 0, 0, 0, 0, 0]]
+        cell = self.get_cell()
+        map[cell[0] - 1][cell[1] - 1] = 1
+
+        if self.type is 'Tower':
+            pass
+
+        for c in map:
+            print(*c)
+        #return map
+
     # Return a position [cell_x, cell_y] = es[5, 8]
     def move(self, x, y):
         new_pos = grid_to_pos(x, y)
