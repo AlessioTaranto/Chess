@@ -30,6 +30,7 @@ class Board:
         for x in range(8):
             for y in range(8):
                 self.map[y][x].data = 0
+                self.map[y][x].isSelected = False
 
     # Function used to highlight a cell
     def highlight_cell(self, x, y):
@@ -71,7 +72,7 @@ class Board:
 
     # Print the map on the terminal using 'U'
     def print(self):
-        print('\nBoard: ')
+        print('\Board map: ')
         data = get_data(self.map)
         text = ' '
         for x in range(8):

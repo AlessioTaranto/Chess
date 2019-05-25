@@ -46,16 +46,13 @@ class Game:
         self.black_team.append(Piece('Black', 'Horse', 7, 1))
         self.black_team.append(Piece('Black', 'Tower', 8, 1))
         self.black_team.append(Piece('Black', 'Pawn', 1, 2))
-        self.black_team.append(Piece('Black', 'Pawn', 2, 2))
+        self.black_team.append(Piece('Black', 'Pawn', 2, 5))
         self.black_team.append(Piece('Black', 'Pawn', 3, 2))
         self.black_team.append(Piece('Black', 'Pawn', 4, 2))
         self.black_team.append(Piece('Black', 'Pawn', 5, 2))
         self.black_team.append(Piece('Black', 'Pawn', 6, 2))
         self.black_team.append(Piece('Black', 'Pawn', 7, 2))
         self.black_team.append(Piece('Black', 'Pawn', 8, 2))
-        # TEST
-        #print(str(self.black_team[0].color + str(self.black_team[0].type)))
-        #self.black_team[0].check_movement()
 
         self.cell = [-1, -1]
         self.mouse_raw = [0, 0]
@@ -82,6 +79,13 @@ class Game:
             self.black_team[x].update()
 
         self.handle_turn()
+        self.board.clear()
+        m = self.load_movement()
+        if m is not None:
+            for y in range(7):
+                for x in range(7):
+                    if m[y][x] == 1:
+                        self.board.map[y][x].highlight()
 
     # A function that handle all the player moves
     def handle_turn(self):
@@ -117,8 +121,7 @@ class Game:
                                     break
 
                             # Reset
-                            self.cell = [-1, -1]
-                            self.mouse_raw = [-1, -1]
+                            self.reset_selection()
 
                     # White team
                     elif piece_number <= len(self.white_team):
@@ -138,9 +141,17 @@ class Game:
                                     break
 
                             # Reset
-                            self.cell = [-1, -1]
-                            self.mouse_raw = [-1, -1]
+                            self.reset_selection()
         self.mouse_select()
+
+    # Get the movement map if a piece is selected
+    def load_movement(self):
+        all_pieces = self.black_team + self.white_team
+        map = None
+        for piece in all_pieces:
+            if piece.isSelected is True:
+                map = piece.check_movement()
+        return map
 
     # Check if the mouse click is on top of a piece
     def mouse_select(self):
@@ -168,9 +179,9 @@ class Game:
                 cell[x] = 7
             elif 350 > pos[x] > 300:
                 cell[x] = 6
-            elif 300> pos[x] > 250:
+            elif 300 > pos[x] > 250:
                 cell[x] = 5
-            elif 250> pos[x] > 200:
+            elif 250 > pos[x] > 200:
                 cell[x] = 4
             elif 200 > pos[x] > 150:
                 cell[x] = 3
@@ -180,7 +191,6 @@ class Game:
                 cell[x] = 1
 
             self.cell = cell
-        # print(str(self.cell) + ' ' + str(self.mouse_raw))
 
     # A function to update  the map
     def update_board(self):
@@ -194,4 +204,12 @@ class Game:
                 self.board.map[cell[1] - 1][cell[0] - 1].data = 1
 
         self.board.print()
+
+    def reset_selection(self):
+        try:
+            self.cell = [-1, -1]
+            self.mouse_raw = [-1, -1]
+        except:
+            print('No selected piece')
+
 

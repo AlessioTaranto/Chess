@@ -54,15 +54,148 @@ class Piece:
                [0, 0, 0, 0, 0, 0, 0, 0],
                [0, 0, 0, 0, 0, 0, 0, 0],
                [0, 0, 0, 0, 0, 0, 0, 0]]
+
+        # Get and update the position of the piece
         cell = self.get_cell()
-        map[cell[0] - 1][cell[1] - 1] = 1
+        map[cell[0] - 1][cell[1] - 1] = 2
 
+        # Check the movement path
         if self.type is 'Tower':
-            pass
+            for i in range(1, 8):
+                # Top
+                if not(cell[0] - 1 + i < 0 or cell[0] - 1 + i > 8):
+                    map[cell[0] - 1 + i][cell[1] - 1] = 1
+                # Down
+                if not(cell[0] - 1 - i < 0 or cell[0] - 1 - i > 8):
+                    map[cell[0] - 1 - i][cell[1] - 1] = 1
+                # Right
+                if not(cell[1] - 1 + i < 0 or cell[1] - 1 + i > 8):
+                    map[cell[0] - 1][cell[1] - 1 + i] = 1
+                # Left
+                if not(cell[1] - 1 - i < 0 or cell[1] - 1 - i > 8):
+                    map[cell[0] - 1][cell[1] - 1 - i] = 1
 
-        for c in map:
-            print(*c)
-        #return map
+        elif self.type is 'Horse':
+            # Top Right
+            if not(cell[0] - 1 - 1 < 0 or cell[0] - 1 - 1 > 8):
+                if not(cell[1] - 1 + 2 < 0 or cell[1] - 1 + 2 > 8):
+                    map[cell[0] - 1 - 1][cell[1] - 1 + 2] = 1
+            if not(cell[0] - 1 - 2 < 0 or cell[0] - 1 - 2 > 8):
+                if not(cell[1] - 1 + 1 < 0 or cell[1] - 1 + 1 > 8):
+                    map[cell[0] - 1 - 2][cell[1] - 1 + 1] = 1
+            # Down Right
+            if not(cell[0] - 1 + 1 < 0 or cell[0] - 1 + 1 > 8):
+                if not(cell[1] - 1 + 2 < 0 or cell[1] - 1 + 2 > 8):
+                    map[cell[0] - 1 + 1][cell[1] - 1 + 2] = 1
+            if not(cell[0] - 1 + 2 < 0 or cell[0] - 1 + 2 > 8):
+                if not(cell[1] - 1 + 1 < 0 or cell[1] - 1 + 1 > 8):
+                    map[cell[0] - 1 + 2][cell[1] - 1 + 1] = 1
+            # Top Left
+            if not(cell[0] - 1 - 1 < 0 or cell[0] - 1 - 1 > 8):
+                if not(cell[1] - 1 - 2 < 0 or cell[1] - 1 - 2 > 8):
+                    map[cell[0] - 1 - 1][cell[1] - 1 - 2] = 1
+            if not(cell[0] - 1 - 2 < 0 or cell[0] - 1 - 2 < 8):
+                if not(cell[1] - 1 - 1 < 0 or cell[1] - 1 - 1 > 8):
+                    map[cell[0] - 1 - 2][cell[1] - 1 - 1] = 1
+            # Down Left
+            if not(cell[0] - 1 + 1 < 0 or cell[0] - 1 + 1 > 8):
+                if not(cell[1] - 1 - 2 < 0 or cell[1] - 1 - 2 > 8):
+                    map[cell[0] - 1 + 1][cell[1] - 1 - 2] = 1
+            if not(cell[0] - 1 + 2 < 0 or cell[0] - 1 + 2 > 8):
+                if not(cell[1] - 1 - 1 < 0 or cell[1] - 1 - 1 > 8):
+                    map[cell[0] - 1 + 2][cell[1] - 1 - 1] = 1
+
+        elif self.type is 'Bishop':
+            for i in range(0, 8):
+                print (i)
+                # Top right
+                if not(cell[0] - 1 + i < 1 or cell[0] - 1 + i > 8):
+                    if not(cell[1] - 1 + i < 0 or cell[1] - 1 + i > 8):
+                        map[cell[0] - 1 + i][cell[1] - 1 + i] = 1
+                # Down Right
+                if not(cell[0] - 1 - i < 1 or cell[0] - 1 - i > 8):
+                    if not(cell[1] + 1 + i < 0 or cell[1] - 1 + i > 8):
+                        map[cell[0] - 1 - i][cell[1] - 1 + i] = 1
+                # Top Left
+                if not(cell[0] - 1 + i < 1 or cell[0] - 1 + i > 8):
+                    if not(cell[1] - 1 - i < 0 or cell[1] - 1 - i > 8):
+                        map[cell[0] - 1 + i][cell[1] - 1 - i] = 1
+                # Down Left
+                if not(cell[0] - 1 - i < 1 or cell[0] - 1 - i > 8):
+                    if not(cell[1] - 1 - i < 0 or cell[1] - 1 - i > 8):
+                        map[cell[0] - 1 - i][cell[1] - 1 - i] = 1
+
+        elif self.type is 'Queen':
+            for i in range(1, 8):
+                # Top
+                if not(cell[0] - 1 + i < 0 or cell[0] - 1 + i > 8):
+                    map[cell[0] - 1 + i][cell[1] - 1] = 1
+                # Down
+                if not(cell[0] - 1 - i < 0 or cell[0] - 1 - i > 8):
+                    map[cell[0] - 1 - i][cell[1] - 1] = 1
+                # Right
+                if not(cell[1] - 1 + i < 0 or cell[1] - 1 + i > 8):
+                    map[cell[0] - 1][cell[1] - 1 + i] = 1
+                # Left
+                if not(cell[1] - 1 - i < 0 or cell[1] - 1 - i > 8):
+                    map[cell[0] - 1][cell[1] - 1 - i] = 1
+
+                # Top right
+                if not(cell[0] - 1 + i < 0 or cell[0] - 1 + i > 8):
+                    if not(cell[1] - 1 + i < 0 or cell[1] - 1 + i > 8):
+                        map[cell[0] - 1 + i][cell[1] - 1 + i] = 1
+                # Down Right
+                if not(cell[0] - 1 - i < 0 or cell[0] - 1 - i > 8):
+                    if not(cell[1] + 1 + i < 0 or cell[1] - 1 + i > 8):
+                        map[cell[0] - 1 - i][cell[1] - 1 + i] = 1
+                # Top Left
+                if not(cell[0] - 1 + i < 0 or cell[0] - 1 + i > 8):
+                    if not(cell[1] - 1 - i < 0 or cell[1] - 1 - i > 8):
+                        map[cell[0] - 1 + i][cell[1] - 1 - i] = 1
+                # Down Left
+                if not(cell[0] - 1 - i < 0 or cell[0] - 1 - i > 8):
+                    if not(cell[1] - 1 - i < 0 or cell[1] - 1 - i > 8):
+                        map[cell[0] - 1 - i][cell[1] - 1 - i] = 1
+
+        elif self.type is 'King':
+            # Top
+            if not (cell[1] - 1 + 1 > 8 or cell[1] - 1 + 1 < 0):
+                map[cell[0] - 1][cell[1] - 1 + 1] = 1
+            # Down
+            if not(cell[1] - 1 - 1 > 8 or cell[1] - 1 - 1 < 0):
+                map[cell[0] - 1][cell[1] - 1 - 1] = 1
+            # Right
+            if not(cell[0] - 1 + 1 > 8 or cell[0] - 1 + 1 < 0):
+                map[cell[0] - 1 + 1][cell[1] - 1] = 1
+            # Left
+            if not(cell[0] - 1 - 1 > 8 or cell[0] - 1 - 1 < 0):
+                map[cell[0] - 1 - 1][cell[1] - 1] = 1
+            # Top Right
+            if not(cell[0] - 1 - 1 > 8 or cell[0] - 1 - 1 < 0):
+                if not(cell[1] - 1 - 1 > 8 or cell[1] - 1 - 1 < 0):
+                    map[cell[0] - 1 - 1][cell[1] - 1 - 1] = 1
+            # Top Left
+            if not(cell[0] - 1 + 1 > 8 or cell[0] - 1 + 1 < 0):
+                if not(cell[1] - 1 - 1 > 8 or cell[1] - 1 - 1 < 0):
+                    map[cell[0] - 1 + 1][cell[1] - 1 - 1] = 1
+            # Down left
+            if not(cell[0] - 1 - 1 > 8 or cell[0] - 1 - 1 < 0):
+                if not(cell[1] - 1 + 1 > 8 or cell[1] + 1 - 1 < 0):
+                    map[cell[0] - 1 - 1][cell[1] - 1 + 1] = 1
+
+            if not(cell[0] - 1 + 1 > 8 or cell[0] - 1 + 1 < 0):
+                if not(cell[1] - 1 + 1 > 8 or cell[1] - 1 + 1 < 0):
+                    map[cell[0] - 1 + 1][cell[1] - 1 + 1] = 1
+
+        elif self.type is 'Pawn':
+            if self.color is 'Black':
+                if not(cell[1] - 1 - 1 < 0 or cell[1] - 1 + 1 > 8):
+                    map[cell[0] - 1][cell[1] - 1 + 1] = 1
+            if self.color is 'White':
+                if not(cell[1] - 1 + 1 < 0 or cell[1] - 1 - 1 > 8):
+                    map[cell[0] - 1][cell[1] - 1 - 1] = 1
+
+        return map
 
     # Return a position [cell_x, cell_y] = es[5, 8]
     def move(self, x, y):
