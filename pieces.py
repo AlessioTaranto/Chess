@@ -4,11 +4,11 @@ import pyglet
 class Piece:
     def __init__(self, color, type, x, y):
         # Ask the type of the piece
+        self.color = color
         self.type = type
         self.cell = [x, y]
         self.position = grid_to_pos(self.cell[0], self.cell[1])
-        print('Piece created: ' + str(self.position) + ' // ' + str(self.cell))
-        self.color = color
+        print('Piece created: ' + str(self.color + self.type) + ' // ' + str(self.position) + ' // ' + str(self.cell))
 
         # Selection Logic
         self.isSelected = False
@@ -57,143 +57,150 @@ class Piece:
 
         # Get and update the position of the piece
         cell = self.get_cell()
-        map[cell[0] - 1][cell[1] - 1] = 2
+
+        # Board start from 1
+        cell[0] -= 1
+        cell[1] -= 1
+        map[cell[0]][cell[1]] = 2
+
+        # Function params
+        min_cell = 0
+        max_cell = 7
 
         # Check the movement path
         if self.type is 'Tower':
-            for i in range(1, 8):
+            for i in range(min_cell, max_cell):
                 # Top
-                if not(cell[0] - 1 + i < 0 or cell[0] - 1 + i > 8):
-                    map[cell[0] - 1 + i][cell[1] - 1] = 1
+                if not(cell[0] + i < min_cell or cell[0] + i > max_cell):
+                    map[cell[0] + i][cell[1]] = 1
                 # Down
-                if not(cell[0] - 1 - i < 0 or cell[0] - 1 - i > 8):
-                    map[cell[0] - 1 - i][cell[1] - 1] = 1
+                if not(cell[0] - i < min_cell or cell[0] - i > max_cell):
+                    map[cell[0] - i][cell[1]] = 1
                 # Right
-                if not(cell[1] - 1 + i < 0 or cell[1] - 1 + i > 8):
-                    map[cell[0] - 1][cell[1] - 1 + i] = 1
+                if not(cell[1] + i < min_cell or cell[1] + i > max_cell):
+                    map[cell[0]][cell[1] + i] = 1
                 # Left
-                if not(cell[1] - 1 - i < 0 or cell[1] - 1 - i > 8):
-                    map[cell[0] - 1][cell[1] - 1 - i] = 1
+                if not(cell[1] - i < min_cell or cell[1] - i > max_cell):
+                    map[cell[0]][cell[1] - i] = 1
 
         elif self.type is 'Horse':
             # Top Right
-            if not(cell[0] - 1 - 1 < 0 or cell[0] - 1 - 1 > 8):
-                if not(cell[1] - 1 + 2 < 0 or cell[1] - 1 + 2 > 8):
-                    map[cell[0] - 1 - 1][cell[1] - 1 + 2] = 1
-            if not(cell[0] - 1 - 2 < 0 or cell[0] - 1 - 2 > 8):
-                if not(cell[1] - 1 + 1 < 0 or cell[1] - 1 + 1 > 8):
-                    map[cell[0] - 1 - 2][cell[1] - 1 + 1] = 1
+            if not(cell[0] + 1 < min_cell or cell[0] + 1 > max_cell):
+                if not(cell[1] + 2 < min_cell or cell[1] + 2 > max_cell):
+                    map[cell[0] + 1][cell[1] + 2] = 1
+            if not(cell[0] + 2 < min_cell or cell[0] + 2 > max_cell):
+                if not(cell[1] + 1 < min_cell or cell[1] + 1 > max_cell):
+                    map[cell[0] + 2][cell[1] + 1] = 1
             # Down Right
-            if not(cell[0] - 1 + 1 < 0 or cell[0] - 1 + 1 > 8):
-                if not(cell[1] - 1 + 2 < 0 or cell[1] - 1 + 2 > 8):
-                    map[cell[0] - 1 + 1][cell[1] - 1 + 2] = 1
-            if not(cell[0] - 1 + 2 < 0 or cell[0] - 1 + 2 > 8):
-                if not(cell[1] - 1 + 1 < 0 or cell[1] - 1 + 1 > 8):
-                    map[cell[0] - 1 + 2][cell[1] - 1 + 1] = 1
+            if not(cell[0] + 2 < min_cell or cell[0] + 2 > max_cell):
+                if not(cell[1] - 1 < min_cell or cell[1] - 1 > max_cell):
+                    map[cell[0] + 2][cell[1] - 1] = 1
+            if not(cell[0] + 1 < min_cell or cell[0] + 1 > max_cell):
+                if not(cell[1]  - 2 < min_cell or cell[1] - 2 > max_cell):
+                    map[cell[0] + 1][cell[1] - 2] = 1
             # Top Left
-            if not(cell[0] - 1 - 1 < 0 or cell[0] - 1 - 1 > 8):
-                if not(cell[1] - 1 - 2 < 0 or cell[1] - 1 - 2 > 8):
-                    map[cell[0] - 1 - 1][cell[1] - 1 - 2] = 1
-            if not(cell[0] - 1 - 2 < 0 or cell[0] - 1 - 2 < 8):
-                if not(cell[1] - 1 - 1 < 0 or cell[1] - 1 - 1 > 8):
-                    map[cell[0] - 1 - 2][cell[1] - 1 - 1] = 1
+            if not(cell[0] -  1< min_cell or cell[0] - 1 > max_cell):
+                if not(cell[1] + 2 < min_cell or cell[1] + 2 > max_cell):
+                    map[cell[0] - 1][cell[1] + 2] = 1
+            if not(cell[0] - 2 < min_cell or cell[0] - 2 > max_cell):
+                if not(cell[1] + 1 < min_cell or cell[1] + 1 > max_cell):
+                    map[cell[0] - 2][cell[1] + 1] = 1
             # Down Left
-            if not(cell[0] - 1 + 1 < 0 or cell[0] - 1 + 1 > 8):
-                if not(cell[1] - 1 - 2 < 0 or cell[1] - 1 - 2 > 8):
-                    map[cell[0] - 1 + 1][cell[1] - 1 - 2] = 1
-            if not(cell[0] - 1 + 2 < 0 or cell[0] - 1 + 2 > 8):
-                if not(cell[1] - 1 - 1 < 0 or cell[1] - 1 - 1 > 8):
-                    map[cell[0] - 1 + 2][cell[1] - 1 - 1] = 1
+            if not(cell[0] - 1 < min_cell or cell[0] - 1 > max_cell):
+                if not(cell[1] - 2 < min_cell or cell[1] - 2 > max_cell):
+                    map[cell[0] - 1][cell[1] - 2] = 1
+            if not(cell[0] - 2 < min_cell or cell[0] - 2 > max_cell):
+                if not(cell[1] - 1 < min_cell or cell[1] - 1 > max_cell):
+                    map[cell[0] - 2][cell[1] - 1] = 1
 
         elif self.type is 'Bishop':
-            for i in range(0, 8):
-                print (i)
+            for i in range(min_cell, max_cell):
                 # Top right
-                if not(cell[0] - 1 + i < 1 or cell[0] - 1 + i > 8):
-                    if not(cell[1] - 1 + i < 0 or cell[1] - 1 + i > 8):
-                        map[cell[0] - 1 + i][cell[1] - 1 + i] = 1
+                if not(cell[0] + i < min_cell or cell[0] + i > max_cell):
+                    if not(cell[1] + i < min_cell or cell[1] + i > max_cell):
+                        map[cell[0] + i][cell[1] + i] = 1
                 # Down Right
-                if not(cell[0] - 1 - i < 1 or cell[0] - 1 - i > 8):
-                    if not(cell[1] + 1 + i < 0 or cell[1] - 1 + i > 8):
-                        map[cell[0] - 1 - i][cell[1] - 1 + i] = 1
+                if not(cell[0] - i < min_cell or cell[0] - i > max_cell):
+                    if not(cell[1] + 1 + i < min_cell or cell[1] + i > max_cell):
+                        map[cell[0] - i][cell[1] + i] = 1
                 # Top Left
-                if not(cell[0] - 1 + i < 1 or cell[0] - 1 + i > 8):
-                    if not(cell[1] - 1 - i < 0 or cell[1] - 1 - i > 8):
-                        map[cell[0] - 1 + i][cell[1] - 1 - i] = 1
+                if not(cell[0] + i < min_cell or cell[0] + i > max_cell):
+                    if not(cell[1] - i < min_cell or cell[1] - i > max_cell):
+                        map[cell[0] + i][cell[1] - i] = 1
                 # Down Left
-                if not(cell[0] - 1 - i < 1 or cell[0] - 1 - i > 8):
-                    if not(cell[1] - 1 - i < 0 or cell[1] - 1 - i > 8):
-                        map[cell[0] - 1 - i][cell[1] - 1 - i] = 1
+                if not(cell[0] - i < min_cell or cell[0] - i > max_cell):
+                    if not(cell[1] - i < min_cell or cell[1] - i > max_cell):
+                        map[cell[0] - i][cell[1] - i] = 1
 
         elif self.type is 'Queen':
-            for i in range(1, 8):
+            for i in range(min_cell, max_cell):
                 # Top
-                if not(cell[0] - 1 + i < 0 or cell[0] - 1 + i > 8):
-                    map[cell[0] - 1 + i][cell[1] - 1] = 1
+                if not(cell[0] + i < min_cell or cell[0] + i > max_cell):
+                    map[cell[0] + i][cell[1]] = 1
                 # Down
-                if not(cell[0] - 1 - i < 0 or cell[0] - 1 - i > 8):
-                    map[cell[0] - 1 - i][cell[1] - 1] = 1
+                if not(cell[0] - i < min_cell or cell[0] - i > max_cell):
+                    map[cell[0] - i][cell[1]] = 1
                 # Right
-                if not(cell[1] - 1 + i < 0 or cell[1] - 1 + i > 8):
-                    map[cell[0] - 1][cell[1] - 1 + i] = 1
+                if not(cell[1] + i < min_cell or cell[1] + i > max_cell):
+                    map[cell[0]][cell[1] + i] = 1
                 # Left
-                if not(cell[1] - 1 - i < 0 or cell[1] - 1 - i > 8):
-                    map[cell[0] - 1][cell[1] - 1 - i] = 1
+                if not(cell[1] - i < min_cell or cell[1] - i > max_cell):
+                    map[cell[0]][cell[1] - i] = 1
 
                 # Top right
-                if not(cell[0] - 1 + i < 0 or cell[0] - 1 + i > 8):
-                    if not(cell[1] - 1 + i < 0 or cell[1] - 1 + i > 8):
-                        map[cell[0] - 1 + i][cell[1] - 1 + i] = 1
+                if not(cell[0] + i < min_cell or cell[0] + i > max_cell):
+                    if not(cell[1] + i < min_cell or cell[1] + i > max_cell):
+                        map[cell[0] + i][cell[1] + i] = 1
                 # Down Right
-                if not(cell[0] - 1 - i < 0 or cell[0] - 1 - i > 8):
-                    if not(cell[1] + 1 + i < 0 or cell[1] - 1 + i > 8):
-                        map[cell[0] - 1 - i][cell[1] - 1 + i] = 1
+                if not(cell[0] - i < min_cell or cell[0] - i > max_cell):
+                    if not(cell[1] + 1 + i < min_cell or cell[1] + i > max_cell):
+                        map[cell[0] - i][cell[1] + i] = 1
                 # Top Left
-                if not(cell[0] - 1 + i < 0 or cell[0] - 1 + i > 8):
-                    if not(cell[1] - 1 - i < 0 or cell[1] - 1 - i > 8):
-                        map[cell[0] - 1 + i][cell[1] - 1 - i] = 1
+                if not(cell[0] + i < min_cell or cell[0] + i > max_cell):
+                    if not(cell[1] - i < 0 or cell[1] - i > max_cell):
+                        map[cell[0] + i][cell[1] - i] = 1
                 # Down Left
-                if not(cell[0] - 1 - i < 0 or cell[0] - 1 - i > 8):
-                    if not(cell[1] - 1 - i < 0 or cell[1] - 1 - i > 8):
-                        map[cell[0] - 1 - i][cell[1] - 1 - i] = 1
+                if not(cell[0] - i < min_cell or cell[0] - i > max_cell):
+                    if not(cell[1] - i < 0 or cell[1] - i > max_cell):
+                        map[cell[0] - i][cell[1] - i] = 1
 
         elif self.type is 'King':
             # Top
-            if not (cell[1] - 1 + 1 > 8 or cell[1] - 1 + 1 < 0):
-                map[cell[0] - 1][cell[1] - 1 + 1] = 1
+            if not (cell[1] + 1 > max_cell or cell[1] + 1 < min_cell):
+                map[cell[0]][cell[1] + 1] = 1
             # Down
-            if not(cell[1] - 1 - 1 > 8 or cell[1] - 1 - 1 < 0):
-                map[cell[0] - 1][cell[1] - 1 - 1] = 1
+            if not(cell[1] > max_cell or cell[1] < min_cell):
+                map[cell[0]][cell[1]] = 1
             # Right
-            if not(cell[0] - 1 + 1 > 8 or cell[0] - 1 + 1 < 0):
-                map[cell[0] - 1 + 1][cell[1] - 1] = 1
+            if not(cell[0] + 1 > max_cell or cell[0] + 1 < min_cell):
+                map[cell[0] + 1][cell[1]] = 1
             # Left
-            if not(cell[0] - 1 - 1 > 8 or cell[0] - 1 - 1 < 0):
-                map[cell[0] - 1 - 1][cell[1] - 1] = 1
+            if not(cell[0] > max_cell or cell[0] < min_cell):
+                map[cell[0]][cell[1]] = 1
             # Top Right
-            if not(cell[0] - 1 - 1 > 8 or cell[0] - 1 - 1 < 0):
-                if not(cell[1] - 1 - 1 > 8 or cell[1] - 1 - 1 < 0):
-                    map[cell[0] - 1 - 1][cell[1] - 1 - 1] = 1
+            if not(cell[0] > max_cell or cell[0] < min_cell):
+                if not(cell[1] > max_cell or cell[1] < min_cell):
+                    map[cell[0]][cell[1]] = 1
             # Top Left
-            if not(cell[0] - 1 + 1 > 8 or cell[0] - 1 + 1 < 0):
-                if not(cell[1] - 1 - 1 > 8 or cell[1] - 1 - 1 < 0):
-                    map[cell[0] - 1 + 1][cell[1] - 1 - 1] = 1
+            if not(cell[0] + 1 > max_cell or cell[0] + 1 < min_cell):
+                if not(cell[1] > max_cell or cell[1] < min_cell):
+                    map[cell[0] + 1][cell[1]] = 1
             # Down left
-            if not(cell[0] - 1 - 1 > 8 or cell[0] - 1 - 1 < 0):
-                if not(cell[1] - 1 + 1 > 8 or cell[1] + 1 - 1 < 0):
-                    map[cell[0] - 1 - 1][cell[1] - 1 + 1] = 1
+            if not(cell[0] > max_cell or cell[0] < min_cell):
+                if not(cell[1] + 1 > max_cell or cell[1] + 1 < min_cell):
+                    map[cell[0]][cell[1] + 1] = 1
 
-            if not(cell[0] - 1 + 1 > 8 or cell[0] - 1 + 1 < 0):
-                if not(cell[1] - 1 + 1 > 8 or cell[1] - 1 + 1 < 0):
-                    map[cell[0] - 1 + 1][cell[1] - 1 + 1] = 1
+            if not(cell[0] + 1 > max_cell or cell[0] + 1 < min_cell):
+                if not(cell[1] + 1 > max_cell or cell[1] + 1 < min_cell):
+                    map[cell[0] + 1][cell[1] + 1] = 1
 
         elif self.type is 'Pawn':
             if self.color is 'Black':
-                if not(cell[1] - 1 - 1 < 0 or cell[1] - 1 + 1 > 8):
-                    map[cell[0] - 1][cell[1] - 1 + 1] = 1
+                if not(cell[1] < min_cell or cell[1] + 1 > max_cell):
+                    map[cell[0]][cell[1] + 1] = 1
             if self.color is 'White':
-                if not(cell[1] - 1 + 1 < 0 or cell[1] - 1 - 1 > 8):
-                    map[cell[0] - 1][cell[1] - 1 - 1] = 1
+                if not(cell[1] + 1 < min_cell or cell[1] > max_cell):
+                    map[cell[0]][cell[1] - 1] = 1
 
         return map
 

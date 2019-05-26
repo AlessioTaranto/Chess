@@ -79,15 +79,17 @@ class Game:
             self.black_team[x].update()
 
         self.handle_turn()
+
+        # Check if a cell is selected and highlight it
         self.board.clear()
         m = self.load_movement()
         if m is not None:
-            for y in range(7):
-                for x in range(7):
+            for y in range(0, 8):
+                for x in range(0, 8):
                     if m[y][x] == 1:
                         self.board.map[y][x].highlight()
-
-    # A function that handle all the player moves
+                        
+   # A function that handle all the player moves
     def handle_turn(self):
         # Check if a piece is selected
         piece_number = -1
@@ -107,41 +109,49 @@ class Game:
                     if piece_number > len(self.white_team) - 1:
                         cell = self.black_team[piece_number - len(self.white_team)].get_cell()
                         if self.cell[0] is not cell[0] or self.cell[1] is not cell[1]:
-                            piece = self.black_team[piece_number - len(self.white_team)]
-                            print('Move: ' + str(piece.color) + ' - ' + str(piece.type) + ' ' + str(piece.get_cell()) + ' --> ' + str(self.cell))
-                            self.black_team[piece_number - len(self.white_team)].move(self.cell[0], self.cell[1])
 
-                            # Check collisions, so it check if a white got eaten
-                            for i in range(0, len(self.white_team)):
-                                c = self.white_team[i].get_cell()
-                                if self.cell[0] == c[0] and self.cell[1] == c[1]:
-                                    w = self.white_team[i]
-                                    print(str(w.color) + ' - ' + str(w.type) + ' got eaten')
-                                    del self.white_team[i]
-                                    break
+                            # Check if the movement is legal
+                            m = self.load_movement()
+                            if m[self.cell[0] - 1][self.cell[1] - 1] == 1:
+                                piece = self.black_team[piece_number - len(self.white_team)]
+                                print('Move: ' + str(piece.color) + ' - ' + str(piece.type) + ' ' + str(piece.get_cell()) + ' --> ' + str(self.cell))
+                                self.black_team[piece_number - len(self.white_team)].move(self.cell[0], self.cell[1])
 
-                            # Reset
-                            self.reset_selection()
+                                # Check collisions, so it check if a white got eaten
+                                for i in range(0, len(self.white_team)):
+                                    c = self.white_team[i].get_cell()
+                                    if self.cell[0] == c[0] and self.cell[1] == c[1]:
+                                        w = self.white_team[i]
+                                        print(str(w.color) + ' - ' + str(w.type) + ' got eaten')
+                                        del self.white_team[i]
+                                        break
+
+                                # Reset
+                                self.reset_selection()
 
                     # White team
                     elif piece_number <= len(self.white_team):
                         cell = self.white_team[piece_number].get_cell()
                         if self.cell[0] is not cell[0] or self.cell[1] is not cell[1]:
-                            piece = self.white_team[piece_number]
-                            print('Move: ' + str(piece.color) + ' - ' + str(piece.type) + ' ' + str(piece.get_cell()) + ' --> ' + str(self.cell))
-                            self.white_team[piece_number].move(self.cell[0], self.cell[1])
+                            m = self.load_movement()
 
-                            # Check collisions, so it check if a black got eaten
-                            for i in range(0, len(self.black_team)):
-                                c = self.black_team[i].get_cell()
-                                if self.cell[0] == c[0] and self.cell[1] == c[1]:
-                                    w = self.black_team[i]
-                                    print(str(w.color) + ' - ' + str(w.type) + ' got eaten')
-                                    del self.black_team[i]
-                                    break
+                            # Check if the movement is legal
+                            if m[self.cell[0] - 1][self.cell[1] - 1] == 1:
+                                piece = self.white_team[piece_number]
+                                print('Move: ' + str(piece.color) + ' - ' + str(piece.type) + ' ' + str(piece.get_cell()) + ' --> ' + str(self.cell))
+                                self.white_team[piece_number].move(self.cell[0], self.cell[1])
 
-                            # Reset
-                            self.reset_selection()
+                                # Check collisions, so it check if a black got eaten
+                                for i in range(0, len(self.black_team)):
+                                    c = self.black_team[i].get_cell()
+                                    if self.cell[0] == c[0] and self.cell[1] == c[1]:
+                                        w = self.black_team[i]
+                                        print(str(w.color) + ' - ' + str(w.type) + ' got eaten')
+                                        del self.black_team[i]
+                                        break
+
+                                # Reset
+                                self.reset_selection()
         self.mouse_select()
 
     # Get the movement map if a piece is selected
